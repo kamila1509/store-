@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin: 0px 9%;
+    padding: 20px 0px;
+    font-size: 24px;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.filters-counter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+    border-right: 1px solid #D9D9D9;
+    flex: 1;
+}
+.filters-buttons {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    flex: 4;
+}
+
+.filters-arrow {
+    padding: 20px 0px;
+    flex: 1;
+    text-align: center;
+    width: fit-content;
+}
+.filter-button {
+    margin: 0px 10px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #EDEDED;
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    letter-spacing: -0.15px;
+}
+.buttons{
+    padding-left: 20px;
+}
+.filter-button:hover,
+.filter-button:active{
+    background: #0AD4FA;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        position: relative;
+    }
+    .filters-counter {
+        display: inline;
+        width: fit-content;
+        order: 1;
+        padding: 10px;
+    }
+    .filters-buttons{
+        order: 3;       
+    }
+    .filters-arrow{
+        display: inline;
+        width: fit-content;
+        order: 2;
+        position: absolute;
+        top: 0;
+        right:10%;
+    }
+    .filter-button {
+        margin: 0px 10px;
+        font-size: 20px;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .filters-buttons{
+       flex-direction: column;
+       padding: 0px;
+    }
+    .filters-buttons span {
+        padding: 10px 0px;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .filter-button {
+        margin: 0px 5px;
+        font-size: 15px;
+        padding: 10px;
+    }
+}
