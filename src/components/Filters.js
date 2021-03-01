@@ -1,13 +1,28 @@
-import React from "react";
-import './Filters.css'
+import React ,{useContext, useEffect, useState}from "react";
+import '../styles/Filters.css';
 import { ReactComponent as ArrowRight } from '../assets/icons/arrow-right.svg';
+import { ReactComponent as ArrowLeft } from '../assets/icons/arrow-left.svg';
+import usePagination from "../hooks/Pagination.js";
+import { shopContext } from "../App";
+import Data from '../utils/getData.js'
 
 
 function Filters() {
+    const { products, setProducts } = useContext(shopContext)
+    const [dataProducts, setDataProducts] = useState("")
+    const _DATA = usePagination(dataProducts, 16)
+    useEffect(()=>{
+         async function GetData () {
+            const getProductsData = await Data.getProducts()
+            setDataProducts(getProductsData)
+            setProducts(_DATA.currentData())
+        };
+        GetData();
+    },[dataProducts]);
     return (
         <div className="container">
             <div className="filters-counter">
-                <span>16 of 32 products</span>
+                <span>Page {_DATA.currentPage} of {_DATA.maxPage}</span>
             </div>
             <div className="filters-buttons">
                 <span>Sort by:</span>
@@ -18,7 +33,12 @@ function Filters() {
                 </div>
             </div>
             <div className="filters-arrow">
-                <ArrowRight></ArrowRight>
+                <ArrowLeft
+                    onClick={ () => _DATA.prev()}
+                />
+                <ArrowRight
+                    onClick={ () => _DATA.next()}
+                />
             </div>
         </div>
     )
