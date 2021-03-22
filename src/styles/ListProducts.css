@@ -9,3 +9,17 @@
         justify-content: center;
         
 }
+.options-container {
+        padding: 25px 0px;
+        margin: 0 20%;
+        display: flex;
+        justify-content: space-evenly;
+}
+.options-container span {
+        padding: 10px 20px;
+        background-color: #ffcf00;
+        border-radius: 10px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+}

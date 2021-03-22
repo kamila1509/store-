@@ -10,11 +10,11 @@ const GETHISTORY = "https://coding-challenge-api.aerolab.co/user/history";
 const ADDPRODUCT = "https://coding-challenge-api.aerolab.co/redeem";
 const GETPRODUCTS = "https://coding-challenge-api.aerolab.co/products";
 
-
-export default {
+const URL = {
     GETUSER,
     ADDCOINS,
     GETHISTORY,
     ADDPRODUCT,
     GETPRODUCTS
 }
+export default URL 

@@ -9,6 +9,8 @@ async function addProduct (id) {
                 productId: id
             })
         })
+        const data = await response.json();
+        return data;
     }catch(error){
         console.log('Post Failed',error)
     }
@@ -27,8 +29,8 @@ async function addCoins (coins) {
         console.log('Post Failed',error);
       }
 }
-
-export default {
+const Post = {
     addProduct,
     addCoins
 }
+export default Post

@@ -1,7 +1,8 @@
 .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 0px 9%;
+    margin-bottom: 30px;
     padding: 20px 0px;
     font-size: 24px;
     border-bottom: 1px solid #D9D9D9;
@@ -9,23 +10,24 @@
 
 .filters-counter {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     padding-right: 15px;
-    border-right: 1px solid #D9D9D9;
     flex: 1;
 }
 .filters-buttons {
     display: flex;
     align-items: center;
+    border-left: 1px solid #D9D9D9;
     padding: 20px;
     flex: 4;
 }
 
 .filters-arrow {
+    max-width: 115px;
     padding: 20px 0px;
     flex: 1;
-    text-align: center;
+    text-align: right;
     width: fit-content;
 }
 .filters-arrow svg {

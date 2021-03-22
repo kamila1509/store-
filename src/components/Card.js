@@ -1,4 +1,4 @@
-import React, { useContext}from "react";
+import React, { useContext  }from "react";
 import buyIcon from '../assets/icons/buy-blue.svg'
 import buyIconHover from '../assets/icons/buy-white.svg'
 import coin from '../assets/icons/coin.svg'
@@ -6,7 +6,7 @@ import '../styles/Card.css';
 import { shopContext } from "../App";
 
 function Card(props) {
-    const { user } = useContext(shopContext)
+    const { user , setCurrentProduct } = useContext(shopContext)
     return (
         <div className="card-container">
            {user && user.points<props.data.cost ? 
@@ -29,7 +29,12 @@ function Card(props) {
                         <span>{props.data.cost}</span>
                         <img alt="coin" src={coin}></img>
                     </div>
-                    <div className="card-reddem-button">Redeem now</div>
+                    <div className="card-reddem-button"
+                        onClick={() => {
+                            props.setToggleCard(true)
+                            setCurrentProduct(props.data._id)
+                      }}
+                    >Redeem now</div>
                 </div>
            </div>) }
         </div>

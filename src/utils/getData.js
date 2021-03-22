@@ -1,4 +1,4 @@
-import URL ,{ headers }from './api.js'
+import URL,{ headers }from './api.js'
 
 async function getProducts () {
     try{
@@ -41,8 +41,9 @@ async function getHistory () {
     }
 }
 
-export default {
+const Data = {
     getProducts,
     getUser,
     getHistory
 }
+export default Data

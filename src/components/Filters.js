@@ -1,43 +1,62 @@
-import React ,{useContext, useEffect, useState}from "react";
+import React, { useContext } from "react";
 import '../styles/Filters.css';
 import { ReactComponent as ArrowRight } from '../assets/icons/arrow-right.svg';
 import { ReactComponent as ArrowLeft } from '../assets/icons/arrow-left.svg';
-import usePagination from "../hooks/Pagination.js";
 import { shopContext } from "../App";
-import Data from '../utils/getData.js'
+import Data from "../utils/getData.js"
 
 
-function Filters() {
-    const { products, setProducts } = useContext(shopContext)
-    const [dataProducts, setDataProducts] = useState("")
-    const _DATA = usePagination(dataProducts, 16)
-    useEffect(()=>{
-         async function GetData () {
-            const getProductsData = await Data.getProducts()
-            setDataProducts(getProductsData)
-            setProducts(_DATA.currentData())
-        };
-        GetData();
-    },[dataProducts]);
+function Filters(props) {
+    const { pagination: { next, prev, currentPage, maxPage, jump }, setProducts} = useContext(shopContext)
+    async function handleHighest() {
+        let product = await Data.getProducts()
+        setProducts(product)
+        jump(1)
+        let filter = product.filter(item => item.cost > 500);
+        setProducts(filter)
+    }
+    async function handleLowest() {
+        let product = await Data.getProducts()
+        setProducts(product)
+        jump(1)
+        let filter = product.filter(item => item.cost < 500);
+        setProducts(filter)
+    }
+    async function allProducts() {
+        let product = await Data.getProducts()
+        jump(1)
+        setProducts(product)
+    }
+
     return (
         <div className="container">
             <div className="filters-counter">
-                <span>Page {_DATA.currentPage} of {_DATA.maxPage}</span>
+                <span>Page {currentPage} of {maxPage}</span>
             </div>
-            <div className="filters-buttons">
+            {props.show && (<div className="filters-buttons">
                 <span>Sort by:</span>
                 <div className="buttons">
-                    <button className="filter-button">Most Recent</button>
-                    <button className="filter-button">Lowest price</button>
-                    <button className="filter-button">Highest price</button>
+                    <button className="filter-button"
+                        onClick={() => {
+                            allProducts()
+                        }}>All Products</button>
+                    <button className="filter-button"
+                        onClick={() => {
+                            handleLowest()
+                        }}>Lowest price</button>
+                    <button className="filter-button"
+                        onClick={() => {
+                            handleHighest()
+                        }}
+                    >Highest price</button>
                 </div>
-            </div>
+            </div>)}
             <div className="filters-arrow">
                 <ArrowLeft
-                    onClick={ () => _DATA.prev()}
+                    onClick={prev}
                 />
                 <ArrowRight
-                    onClick={ () => _DATA.next()}
+                    onClick={next}
                 />
             </div>
         </div>

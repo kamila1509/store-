@@ -1,23 +1,53 @@
-import React, {useContext, useEffect} from "react"
+import React, { useContext , useState } from "react"
 import Card from "../components/Card"
 import '../styles/ListProducts.css'
 import { shopContext } from "../App";
-import Data from '../utils/getData.js'
+import Modal from './Modal.js';
+import Post from "../utils/postData";
+import Data from "../utils/getData.js";
+import swal from 'sweetalert';
 
 function ListProducts () {
-    const { products, setProducts } = useContext(shopContext)
+    const { pagination:{currentData} , currentProduct ,setUser ,setReedemHistory} = useContext(shopContext)
+    const [toggleCard , setToggleCard ] = useState(false)
+    async function handleAddProducts (id) {
+        let data = await Post.addProduct(id)
+        setToggleCard(false)
+        if(!data.error) {
+            swal("Good job!", data.message, "success");
+        } else {
+            swal("Oh no!", data.error, "error");
+        }
+        let user = await Data.getUser()
+        setUser(user)
+        let history = await Data.getHistory()
+        setReedemHistory(history)
+        
+    } 
     return (
-        <div className="product-container">
-            {products ? (
-                products.map((product) => {
+      <React.Fragment>
+            <div className="product-container">
+            {currentData().length !== 0 ? (
+                currentData().map((product) => {
                     return (
-                        <Card data={product} key={product._id}></Card> 
+                        <Card data={product} key={product._id} setToggleCard={setToggleCard}></Card> 
                     );
                 })
             ): (
-                <p>... Loading</p>
+                <progress/>
             )}
         </div>
+        {toggleCard ? (
+            <Modal title={'Are you sure?'} setToggle={setToggleCard} >
+                <div className="options-container">
+                    <span onClick={() =>
+                            handleAddProducts(currentProduct)
+                        }>Yes</span>
+                    <span>No</span>
+                </div>
+            </Modal>
+        ): ''}
+      </React.Fragment>
         
     )
 }
